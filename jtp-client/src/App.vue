@@ -1,13 +1,13 @@
 <template>
-    <HelloWorld />
+    <TranspilerDemo />
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import TranspilerDemo from './components/TranspilerDemo.vue'
 
 export default {
     components: {
-        HelloWorld
+        TranspilerDemo: TranspilerDemo 
     }
 }
 
