@@ -1,5 +1,5 @@
 <template>
-    <nav class="flex items-center p-2">
+    <nav class="flex items-center p-2 border-b">
         <div>
             <svg class="w-12 h-12 mx-1 p-3 hover:bg-stone-200 rounded-full" focusable="false" viewBox="0 0 24 24">
                 <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" fill="#5f6368"></path>
@@ -13,6 +13,9 @@
 </template>
 
 <style scoped>
+nav {
+    border-color: rgb(219, 222, 227);
+}
 
 span {
     color: white;
@@ -26,8 +29,5 @@ span {
 svg:hover + span {
     visibility: visible;
 }
-
-
-
 </style>
 
