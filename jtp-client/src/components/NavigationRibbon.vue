@@ -9,6 +9,9 @@
             </span>
         </div>
         <h1 class="text-xl font-header font-medium text-zinc-600">Transpiler</h1>
+        <div class="flex justify-end flex-1">
+            <img src="@/assets/erase-icon.svg" alt="Erase Icon" class="w-12 h-12"/>
+        </div>
     </nav>
 </template>
 
