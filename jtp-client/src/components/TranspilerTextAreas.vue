@@ -3,6 +3,8 @@
         <textarea name="java-editor" id="java-editor" spellcheck="false"
             v-model="javaEditorDefaultText" />
 
+        <button class="border border-black hover:bg-stone-400">Transpile!</button>
+
         <textarea name="python-editor" id="python-editor" spellcheck="false"
             v-model="pythonEditorDefaultText" />
     </div>
