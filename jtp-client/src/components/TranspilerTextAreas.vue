@@ -24,27 +24,23 @@ export default {
         }
     },
     mounted() {
-        const JAVA_EDITOR_OPTIONS = {
-            mode: "text/x-java",
-            theme: "elegant",
-            lineNumbers: true,
-            indentUnit: 4,
-            autoCloseBrackets: true,
-        };
-
-        const PYTHON_EDITOR_OPTIONS = {
-            mode: "python",
-            theme: "elegant",
-            lineNumbers: true,
-            readOnly: true,
-        };
-
         let javaEditor = CodeMirror.fromTextArea(
-            document.getElementById("java-editor"), JAVA_EDITOR_OPTIONS
+            document.getElementById("java-editor"), {
+                mode: "text/x-java",
+                theme: "elegant",
+                lineNumbers: true,
+                indentUnit: 4,
+                autoCloseBrackets: true,
+            }
         );
 
         let pythonEditor = CodeMirror.fromTextArea(
-            document.getElementById("python-editor"), PYTHON_EDITOR_OPTIONS
+            document.getElementById("python-editor"), {
+                mode: "python",
+                theme: "elegant",
+                lineNumbers: true,
+                readOnly: true,
+            }
         );
 
         const EDITOR_WIDTH = "30%"
@@ -63,15 +59,15 @@ export default {
 
                 if (previousJavaSourceCode === javaSourceCode) {
                     const BASE_URL = process.env.VUE_APP_API_URL;
+                    const FETCH_URL = `${BASE_URL}/transpiler/${javaSourceCode}/`;
 
-                    let response = await fetch(`${BASE_URL}/transpiler/${javaSourceCode}/`);
+                    let response = await fetch(FETCH_URL);
                     response.json().then(jsonData => {
                         pythonEditor.setValue(jsonData.python_source_code);
-                    })
+                    });
 
-                    clearInterval(intervalId)
+                    clearInterval(intervalId);
                 }
-
             }, 1000);
         });
     },
