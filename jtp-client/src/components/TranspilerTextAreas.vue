@@ -3,8 +3,6 @@
         <textarea name="java-editor" id="java-editor" spellcheck="false"
             v-model="javaEditorDefaultText" />
 
-        <button class="border border-black hover:bg-stone-400" id="trans">Transpile!</button>
-
         <textarea name="python-editor" id="python-editor" spellcheck="false"
             v-model="pythonEditorDefaultText" />
     </div>
@@ -55,16 +53,26 @@ export default {
         pythonEditor.setSize(EDITOR_WIDTH, EDITOR_HEIGHT);
         javaEditor.setSize(EDITOR_WIDTH, EDITOR_HEIGHT);
 
+        CodeMirror.on(javaEditor, "change", function() {
+            pythonEditor.setValue("Loading...");
+            let previousJavaSourceCode = javaEditor.getValue();
 
-        document.getElementById("trans").addEventListener("click", async function() {
-            console.log(process.env)
-            const BASE_URL = process.env.VUE_APP_API_URL;
+            setTimeout(1000);
+            const intervalId = setInterval(async function() {
+                let javaSourceCode = javaEditor.getValue();
 
-            let javaSourceCode = javaEditor.getValue();
-            let response = await fetch(`${BASE_URL}/transpiler/${javaSourceCode}/`);
-            response.json().then(jsonData => {
-                pythonEditor.setValue(jsonData.python_source_code);
-            })
+                if (previousJavaSourceCode === javaSourceCode) {
+                    const BASE_URL = process.env.VUE_APP_API_URL;
+
+                    let response = await fetch(`${BASE_URL}/transpiler/${javaSourceCode}/`);
+                    response.json().then(jsonData => {
+                        pythonEditor.setValue(jsonData.python_source_code);
+                    })
+
+                    clearInterval(intervalId)
+                }
+
+            }, 1000);
         });
     },
 }
