@@ -1,10 +1,15 @@
 <template>
-    <div class="flex justify-around">
-        <textarea name="java-editor" id="java-editor" spellcheck="false"
-            v-model="javaEditorDefaultText" />
-
-        <textarea name="python-editor" id="python-editor" spellcheck="false"
-            v-model="pythonEditorDefaultText" />
+    <div class="flex w-screen justify-evenly pt-2">
+        <div class="flex flex-col ">
+            <h2 class="text-xl font-header font-medium text-zinc-600 pb-1">Java</h2>
+            <textarea name="java-editor" id="java-editor" spellcheck="false"
+                v-model="javaEditorDefaultText" />
+        </div>
+        <div class="flex flex-col">
+            <h2 class="text-xl font-header font-medium text-zinc-600 pb-1">Python</h2>
+            <textarea name="python-editor" id="python-editor" spellcheck="false"
+                v-model="pythonEditorDefaultText" />
+        </div>
     </div>
 </template>
 
@@ -43,7 +48,7 @@ export default {
             }
         );
 
-        const EDITOR_WIDTH = "30%"
+        const EDITOR_WIDTH = "30vw"
         const EDITOR_HEIGHT = "30vh"
 
         pythonEditor.setSize(EDITOR_WIDTH, EDITOR_HEIGHT);
@@ -74,3 +79,13 @@ export default {
 }
 
 </script>
+
+<style>
+
+div.CodeMirror.cm-s-elegant {
+	border: 1px solid rgba(0,0,0,.12);
+    border-radius: 8px;
+
+}
+</style>
+
