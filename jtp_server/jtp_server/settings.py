@@ -30,6 +30,8 @@ SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env('DEBUG') != '0'
 
+CORS_ALLOWED_ORIGINS = ["https://javatopythontranspilerdemo.onrender.com"]
+
 ALLOWED_HOSTS = []
 
 
