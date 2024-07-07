@@ -64,9 +64,17 @@ export default {
 
                 if (previousJavaSourceCode === javaSourceCode) {
                     const BASE_URL = process.env.VUE_APP_API_URL;
-                    const FETCH_URL = `${BASE_URL}/transpiler/${javaSourceCode}/`;
+                    const FETCH_URL = `${BASE_URL}/transpiler/`;
 
-                    let response = await fetch(FETCH_URL);
+                    let response = await fetch(FETCH_URL, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            java_source_code: javaSourceCode
+                        })
+                    });
                     response.json().then(jsonData => {
                         pythonEditor.setValue(jsonData.python_source_code);
                     });
