@@ -36,7 +36,7 @@ CORS_ALLOWED_ORIGINS = [
     "https://javatopythontranspilerdemo.onrender.com"
 ]
 
-ALLOWED_HOSTS = ["localhost", "portfoliositeserver.onrender.com"]
+ALLOWED_HOSTS = ["localhost", "javatopythontranspilerdemoserver.onrender.com"]
 
 
 # Application definition
