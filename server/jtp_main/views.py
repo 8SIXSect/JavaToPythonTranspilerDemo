@@ -5,11 +5,17 @@ from java_to_python_transpiler import TranspilerFailure, java_to_python_from_str
 
 @api_view(['POST'])
 def transpiler(request):
-    class Transpiler:
-        def __init__(self, python_source_code):
-            self.python_source_code = python_source_code
+    """
+    The only api view for this project. Accepts a POST request with Java source code
+    and returns the transpiled Python source code or an error message.
+    """
 
-    java_source_code = request.data.get("java_source_code", "")
+    # Outputted/Transpiled source code is put in an object for serialization
+    class Transpiler:
+        def __init__(self, source_code: str):
+            self.source_code = source_code
+
+    java_source_code: str = request.data.get("java_source_code", "")
     result: str | TranspilerFailure = java_to_python_from_string(java_source_code)
     python_source_code: str = (
         result.error_message if isinstance(result, TranspilerFailure) else result
@@ -19,4 +25,3 @@ def transpiler(request):
     serializer = TranspilerSerializer(transpiler_obj)
 
     return Response(serializer.data)
-
