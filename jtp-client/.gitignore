@@ -1,0 +1,64 @@
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Production / build outputs
+/dist
+/build
+/out
+/public/build
+
+# Vue / framework caches and outputs
+/.cache
+/.parcel-cache
+/.nuxt
+/.output
+/.serverless
+.storybook/
+storybook-static/
+
+# Environment files (ignore local secrets). Keep .env.example
+.env
+.env.local
+.env.*.local
+.env.*
+!.env.example
+
+# JetBrains / WebStorm
+.idea/
+*.iml
+.idea/**/workspace.xml
+.idea/**/tasks.xml
+.idea/**/usage.statistics.xml
+.idea/**/dictionaries/
+
+# Editors
+.vscode/
+*.sublime-workspace
+*.sublime-project
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+*.log
+
+# Testing / coverage
+coverage/
+nyc_output/
+
+# ESLint / TypeScript
+.eslintcache
+*.tsbuildinfo
+
+# Misc
+dist/
+tmp/
+temp/
+.cache-loader/
+
