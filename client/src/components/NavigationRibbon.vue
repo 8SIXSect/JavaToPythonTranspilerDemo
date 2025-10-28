@@ -10,5 +10,5 @@
 div {
     border-color: rgb(219, 222, 227);
 }
-</style>
 
+</style>

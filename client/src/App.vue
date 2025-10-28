@@ -1,15 +1,8 @@
-<template>
-    <TranspilerDemo />
-</template>
-
-<script>
-import TranspilerDemo from './components/TranspilerDemo.vue'
-
-export default {
-    components: {
-        TranspilerDemo: TranspilerDemo 
-    }
-}
+<script setup>
+import TranspilerDemo from './components/TranspilerDemo.vue';
 
 </script>
 
+<template>
+    <TranspilerDemo />
+</template>
