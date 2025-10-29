@@ -20,6 +20,39 @@ const pythonEditorDefaultText = ref(
 \t\tprint("Hello, World!")`
 );
 
+/**
+ * Repeatedly checks the Java editor until the text stops changing, then asks the backend
+ * to transpile the stable Java code and writes the returned Python code into the Python editor.
+ * Once the transpilation completes the provided stopPolling callback is called to stop further checks.
+ */
+async function handlePeriodicTranspile(javaEditor, pythonEditor, previousJavaSourceCode, stopPolling) {
+    let javaSourceCode = javaEditor.getValue();
+
+    if (previousJavaSourceCode === javaSourceCode) {
+        const BASE_URL = process.env.VUE_APP_API_URL;
+        const FETCH_URL = `${BASE_URL}/transpiler/`;
+
+        try {
+            let response = await fetch(FETCH_URL, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    java_source_code: javaSourceCode
+                })
+            });
+
+            const jsonData = await response.json();
+            pythonEditor.setValue(jsonData.python_source_code);
+        } catch (e) {
+            pythonEditor.setValue("Error fetching transpilation result.");
+        }
+
+        stopPolling();
+    }
+}
+
 onMounted(() => {
     const javaTextarea = document.getElementById("java-editor");
     const pythonTextarea = document.getElementById("python-editor");
@@ -51,31 +84,14 @@ onMounted(() => {
 
         // small debounce before starting checks
         setTimeout(() => {
-            const intervalId = setInterval(async function() {
-                let javaSourceCode = javaEditor.getValue();
-
-                if (previousJavaSourceCode === javaSourceCode) {
-                    const BASE_URL = process.env.VUE_APP_API_URL;
-                    const FETCH_URL = `${BASE_URL}/transpiler/`;
-
-                    try {
-                        let response = await fetch(FETCH_URL, {
-                            method: "POST",
-                            headers: {
-                                "Content-Type": "application/json"
-                            },
-                            body: JSON.stringify({
-                                java_source_code: javaSourceCode
-                            })
-                        });
-                        const jsonData = await response.json();
-                        pythonEditor.setValue(jsonData.python_source_code);
-                    } catch (e) {
-                        pythonEditor.setValue("Error fetching transpilation result.");
-                    }
-
-                    clearInterval(intervalId);
-                }
+            let intervalId;
+            intervalId = setInterval(() => {
+                handlePeriodicTranspile(
+                    javaEditor,
+                    pythonEditor,
+                    previousJavaSourceCode,
+                    () => clearInterval(intervalId)
+                );
             }, 1000);
         }, 1000);
     });

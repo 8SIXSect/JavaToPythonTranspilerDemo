@@ -1,8 +1,10 @@
 <script setup>
-import TranspilerDemo from './components/TranspilerDemo.vue';
+import ProjectTitleHeaderRibbon from './components/ProjectTitleHeaderRibbon.vue';
+import TranspilerTextAreas from './components/TranspilerTextAreas.vue';
 
 </script>
 
 <template>
-    <TranspilerDemo />
+    <ProjectTitleHeaderRibbon />
+    <TranspilerTextAreas />
 </template>
