@@ -1,4 +1,105 @@
-/* ./src/index.css */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Make border-box the default for all elements and pseudo-elements so width/height include padding and border.
+   This prevents overflowing children and simplifies sizing calculations across the app. */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+/* Dark-only theme variables (single consistent color scheme) */
+:root {
+    --bg: #05060a;
+    --surface: #0b1220;
+    --card: #0f1724;
+    --card-60: rgba(15, 23, 36, 0.6);
+    --text: #e6eef8;
+    --muted: #94a3b8;
+    --muted-weak: rgba(230, 238, 248, 0.55);
+    --border: rgba(255, 255, 255, 0.06);
+    --border-weak: rgba(255, 255, 255, 0.03);
+    --accent: #7C3AED;
+    --accent-2: #06B6D4;
+    --cm-bg: #071125;
+    --cm-gutter-bg: #071525;
+    --cm-foreground: #e6eef8;
+    --cm-cursor: #ffcc00;
+    --cm-selection: rgba(124,58,237,0.18);
+    --cm-keyword: #c792ea;
+    --cm-string: #7dd3fc;
+    --cm-comment: #6b7280;
+}
+
+/* Apply background and text color using variables so both regular CSS and any non-tailwind elements match */
+body {
+    background: linear-gradient(180deg, var(--surface), var(--bg));
+    color: var(--text);
+    transition: background-color 220ms ease, color 220ms ease;
+}
+
+/* Simple, dark-only helper utility classes used by components */
+.text-site {
+    color: var(--text) !important;
+}
+
+.text-muted {
+    color: var(--muted) !important;
+}
+
+.bg-card-60 {
+    background: var(--card-60) !important;
+}
+
+.border-muted {
+    border-color: var(--border) !important;
+}
+
+.border-muted-weak {
+    border-color: var(--border-weak) !important;
+}
+
+/* CodeMirror Material theme overrides to better match our dark palette */
+div.CodeMirror.cm-s-material {
+    background: var(--cm-bg) !important;
+    color: var(--cm-foreground) !important;
+    border: 1px solid var(--border);
+    border-radius: 0.75rem;
+    box-shadow: 0 8px 20px rgba(2, 6, 23, 0.6);
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", monospace;
+    font-size: 12px;
+}
+
+/* Use Tailwind's @screen to scale the editor font size with breakpoints */
+@screen lg {
+    div.CodeMirror.cm-s-material { font-size: 13px; }
+}
+@screen xl {
+    div.CodeMirror.cm-s-material { font-size: 14px; }
+}
+
+/* gutter styling */
+div.CodeMirror.cm-s-material .CodeMirror-gutters {
+    background: var(--cm-gutter-bg) !important;
+    border-right: 1px solid var(--border-weak);
+    color: var(--muted-weak);
+}
+
+/* cursor, selection and active-line */
+div.CodeMirror.cm-s-material .CodeMirror-cursor {
+    border-left: 2px solid var(--cm-cursor) !important;
+}
+div.CodeMirror.cm-s-material .CodeMirror-selected {
+    background: var(--cm-selection) !important;
+}
+
+/* token color tweaks that blend with our palette (these override the material theme colors slightly) */
+.cm-s-material .cm-keyword { color: var(--cm-keyword) !important; }
+.cm-s-material .cm-string  { color: var(--cm-string) !important; }
+.cm-s-material .cm-comment { color: var(--cm-comment) !important; }
+
+/* Soft focus ring consistent with theme */
+:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.12);
+}

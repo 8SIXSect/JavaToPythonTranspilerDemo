@@ -2,7 +2,7 @@
 import { ref, onMounted } from 'vue';
 import CodeMirror from 'codemirror';
 import "codemirror/lib/codemirror.css";
-import "codemirror/theme/elegant.css";
+import "codemirror/theme/material.css"; // changed from elegant.css to material.css
 import "codemirror/mode/python/python";
 import "codemirror/mode/clike/clike";
 
@@ -59,7 +59,7 @@ onMounted(() => {
 
     const javaEditor = CodeMirror.fromTextArea(javaTextarea, {
         mode: "text/x-java",
-        theme: "elegant",
+        theme: "material",
         lineNumbers: true,
         indentUnit: 4,
         autoCloseBrackets: true,
@@ -67,13 +67,14 @@ onMounted(() => {
 
     const pythonEditor = CodeMirror.fromTextArea(pythonTextarea, {
         mode: "python",
-        theme: "elegant",
+        theme: "material",
         lineNumbers: true,
         readOnly: true,
     });
 
-    const EDITOR_WIDTH = "40vw";
-    const EDITOR_HEIGHT = "30vh";
+    // Use parent's full width so editors cannot overflow; height is responsive.
+    const EDITOR_WIDTH = "100%";
+    const EDITOR_HEIGHT = "48vh";
 
     pythonEditor.setSize(EDITOR_WIDTH, EDITOR_HEIGHT);
     javaEditor.setSize(EDITOR_WIDTH, EDITOR_HEIGHT);
@@ -99,24 +100,41 @@ onMounted(() => {
 </script>
 
 <template>
-    <div class="flex w-screen justify-center gap-x-6 pt-2">
-        <div class="flex flex-col">
-            <h2 class="text-xl font-header font-medium text-zinc-600 pb-1">Java</h2>
-            <textarea name="java-editor" id="java-editor" spellcheck="false"
-                      v-model="javaEditorDefaultText" />
+    <div class="grid gap-6">
+        <div class="grid md:grid-cols-2 gap-6 items-start">
+            <div class="bg-[#0f1724]/60 border border-[#ffffff0f] rounded-xl p-4 shadow-lg-soft">
+                <!-- increased size and weight only; color unchanged -->
+                <h2 class="text-xl md:text-2xl font-header font-thin text-gray-100 pb-2">Java</h2>
+                <textarea name="java-editor" id="java-editor" spellcheck="false"
+                    v-model="javaEditorDefaultText" class="w-full h-64 rounded-md bg-transparent text-gray-100"></textarea>
+            </div>
+
+            <div class="bg-[#0f1724]/60 border border-[#ffffff0f] rounded-xl p-4 shadow-lg-soft">
+                <!-- increased size and weight only; color unchanged -->
+                <h2 class="text-xl md:text-2xl font-header font-thin text-gray-100 pb-2">Python</h2>
+                <textarea name="python-editor" id="python-editor" spellcheck="false"
+                    v-model="pythonEditorDefaultText" class="w-full h-64 rounded-md bg-transparent text-gray-100"></textarea>
+            </div>
         </div>
-        <div class="flex flex-col">
-            <h2 class="text-xl font-header font-medium text-zinc-600 pb-1">Python</h2>
-            <textarea name="python-editor" id="python-editor" spellcheck="false"
-                      v-model="pythonEditorDefaultText" />
+        <div class="text-sm text-gray-400">
+            Tip: Edit the Java pane; the tool will detect when edits settle and request a transpilation.
         </div>
     </div>
 </template>
 
 <style>
-div.CodeMirror.cm-s-elegant {
-	border: 1px solid rgba(0,0,0,.12);
-    border-radius: 8px;
+/* Ensure CodeMirror never exceeds its parent width */
+div.CodeMirror {
+    max-width: 100%;
 }
 
+/* Make the textareas visually consistent while hidden (CodeMirror replaces them) */
+textarea {
+    font-family: inherit;
+    color: #e6eef8;
+    background: transparent;
+    resize: none;
+    max-width: 100%;
+    width: 100%;
+}
 </style>
