@@ -102,15 +102,13 @@ onMounted(() => {
 <template>
     <div class="grid gap-6">
         <div class="grid md:grid-cols-2 gap-6 items-start">
-            <div class="bg-[#0f1724]/60 border border-[#ffffff0f] rounded-xl p-4 shadow-lg-soft">
-                <!-- increased size and weight only; color unchanged -->
+            <div class="bg-card-60 border border-muted-weak rounded-xl p-4 shadow-lg-soft">
                 <h2 class="text-xl md:text-2xl font-header font-thin text-gray-100 pb-2">Java</h2>
                 <textarea name="java-editor" id="java-editor" spellcheck="false"
                     v-model="javaEditorDefaultText" class="w-full h-64 rounded-md bg-transparent text-gray-100"></textarea>
             </div>
 
-            <div class="bg-[#0f1724]/60 border border-[#ffffff0f] rounded-xl p-4 shadow-lg-soft">
-                <!-- increased size and weight only; color unchanged -->
+            <div class="bg-card-60 border border-muted-weak rounded-xl p-4 shadow-lg-soft">
                 <h2 class="text-xl md:text-2xl font-header font-thin text-gray-100 pb-2">Python</h2>
                 <textarea name="python-editor" id="python-editor" spellcheck="false"
                     v-model="pythonEditorDefaultText" class="w-full h-64 rounded-md bg-transparent text-gray-100"></textarea>

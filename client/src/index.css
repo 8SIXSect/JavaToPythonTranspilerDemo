@@ -38,27 +38,6 @@ body {
     transition: background-color 220ms ease, color 220ms ease;
 }
 
-/* Simple, dark-only helper utility classes used by components */
-.text-site {
-    color: var(--text) !important;
-}
-
-.text-muted {
-    color: var(--muted) !important;
-}
-
-.bg-card-60 {
-    background: var(--card-60) !important;
-}
-
-.border-muted {
-    border-color: var(--border) !important;
-}
-
-.border-muted-weak {
-    border-color: var(--border-weak) !important;
-}
-
 /* CodeMirror Material theme overrides to better match our dark palette */
 div.CodeMirror.cm-s-material {
     background: var(--cm-bg) !important;
@@ -93,12 +72,10 @@ div.CodeMirror.cm-s-material .CodeMirror-selected {
     background: var(--cm-selection) !important;
 }
 
-/* token color tweaks that blend with our palette (these override the material theme colors slightly) */
 .cm-s-material .cm-keyword { color: var(--cm-keyword) !important; }
 .cm-s-material .cm-string  { color: var(--cm-string) !important; }
 .cm-s-material .cm-comment { color: var(--cm-comment) !important; }
 
-/* Soft focus ring consistent with theme */
 :focus {
     outline: none;
     box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.12);
