@@ -1,65 +1,101 @@
-# Java → Python Transpiler
+# Java → Python Transpiler (Frontend)
 
-![Build](https://img.shields.io/github/actions/workflow/status/hunterg/JavaToPythonTranspiler/ci.yml?label=build)
-![License: MIT](https://img.shields.io/badge/license-MIT-green)
-![Stars](https://img.shields.io/github/stars/hunterg/JavaToPythonTranspiler?style=social)
+[![Build](https://img.shields.io/github/actions/workflow/status/hunterg/JavaToPythonTranspiler/ci.yml?label=build)](https://github.com/hunterg/JavaToPythonTranspiler/actions)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![GitHub stars](https://img.shields.io/github/stars/hunterg/JavaToPythonTranspiler?style=social)](https://github.com/hunterg/JavaToPythonTranspiler/stargazers)
 
-A focused transpilation tool that converts Java source code into clean, readable Python. This repository contains the frontend client (Vue 3 + Tailwind + CodeMirror) used to edit Java input and display the transpiled Python output produced by a simple HTTP API.
+A lightweight frontend client that pairs a Java editor with an automatic transpilation preview into Python. The UI is designed to showcase the transpilation result clearly and reliably while integrating with a small HTTP-based transpiler service.
 
-Why this project matters
-- Demonstrates language translation logic and engineering trade-offs between readability and fidelity.
-- Shows practical experience with frontend tooling, editor integration, and a clear API contract for automated transformation.
-- Great portfolio piece for interviews — highlights engineering judgment, UX for developer tools, and full-stack integration.
+Why this project
+- Demonstrates program transformation and pragmatic choices that prioritize readable, idiomatic Python output.
+- Highlights full-stack engineering: editor integration, efficient polling/debouncing, and a clean API contract for automated conversion.
+- Strong portfolio piece for interviews—shows language understanding, API design, and practical engineering trade-offs.
 
 Demo
 - Live demo: (paste demo URL here)
-- GIF / short screencast: (drag & drop or link a GIF here)
+- GIF / short screencast: (replace with a short animated GIF or link)
+
+![Demo placeholder](https://via.placeholder.com/900x320.png?text=Java+→+Python+Transpiler+Demo+Placeholder)
 
 Quickstart (frontend)
-1. Clone
-    git clone https://github.com/hunterg/JavaToPythonTranspiler.git
-    cd JavaToPythonTranspiler/client
-2. Install
-    npm install
-3. Configure
-    Create a .env.local with:
-        VUE_APP_API_URL=http://localhost:8000
-4. Run
-    npm run dev
-5. Build
-    npm run build
+Prerequisites:
+- Node.js (16+ recommended)
+- An instance of the transpiler API (see API section)
 
-What to expect
-- Edit Java in the left pane; after edits settle the client POSTs the Java source to the transpiler API and replaces the right pane with formatted Python.
-- Frontend tech: Vue 3 (script setup), Tailwind CSS, CodeMirror for editor UX.
-- Editor contract: POST /transpiler/ with JSON { "java_source_code": "<code>" } → returns { "python_source_code": "<code>" }.
+Clone and run locally:
+```bash
+git clone https://github.com/hunterg/JavaToPythonTranspiler.git
+cd JavaToPythonTranspiler/client
+npm install
+# set API url, for example:
+# echo "VUE_APP_API_URL=http://localhost:8000" > .env.local
+npm run dev
+```
 
-API example (curl)
-    curl -X POST "$VUE_APP_API_URL/transpiler/" \
-        -H "Content-Type: application/json" \
-        -d '{"java_source_code":"public class Main { public static void main(String[] a){ System.out.println(\"hi\"); } }"}'
+Build for production:
+```bash
+npm run build
+# serve the built files or deploy to your preferred static hosting
+```
+
+How it works (user flow)
+- Type or paste Java code into the left editor.
+- The client waits for edits to settle and then calls the transpiler API.
+- The returned Python source is displayed in the right pane and is read-only by default.
+
+API contract (expected)
+- Endpoint: POST {VUE_APP_API_URL}/transpiler/
+- Request body (JSON):
+```json
+{ "java_source_code": "<java source here>" }
+```
+- Response body (JSON):
+```json
+{ "python_source_code": "<python source here>" }
+```
+
+Example (curl)
+```bash
+curl -X POST "$VUE_APP_API_URL/transpiler/" \
+  -H "Content-Type: application/json" \
+  -d '{"java_source_code":"public class Main { public static void main(String[] a){ System.out.println(\"hi\"); } }"}'
+```
 
 Result (example)
-- Response JSON:
-    {
-        "python_source_code": "class Main:\n    def main(args):\n        print(\"hi\")\n"
-    }
+```json
+{
+  "python_source_code": "class Main:\n    def main(args):\n        print(\"hi\")\n"
+}
+```
 
-Highlights & implementation notes
-- The frontend prioritizes a clean developer experience: responsive dual editors, stable polling to avoid unnecessary transpile requests, and a single cohesive dark UI palette.
-- Editor sizing and styling are tuned for readability and recruiter-friendly screenshots.
-- The repository separates concerns: editor UI (client) and transpilation logic (server/API). This makes it easy to swap the backend implementation (e.g., a Rust-based transpiler, Python parser, or language-server-backed approach).
+Features
+- Dual-pane editor: Java input and Python output (CodeMirror integration).
+- Debounced/settled-change polling to avoid excessive API calls.
+- Responsive layout tuned for recruiter-friendly screenshots and demos.
+- Simple, clear API contract—easy to swap backend implementations.
 
-How to contribute
-- Open an issue for feature requests or bugs.
-- Fork, create a feature branch, and open a PR with a short description and screenshots for UI changes.
-- Keep changes small and focused; include tests or manual verification instructions where applicable.
+Project structure (high level)
+- client/ — Vue 3 frontend (this folder)
+  - src/components — editor + header components
+  - src/index.css — styling and editor theme overrides
+- server/ — (optional) place for the transpiler service (not included here)
+
+Tests / Verification
+- Manual: run dev server and exercise common Java snippets to verify readable Python output.
+- Automation: recommended to add end-to-end tests that assert the API contract and sample transpilation outputs.
+
+Contributing
+- Raise issues for bugs or feature requests.
+- Fork, create a feature branch, and open a PR with a clear description and screenshots for UI changes.
+- Keep PRs small and focused; include reproduction steps and expected behavior.
+
+Acknowledgements & further work
+- This frontend is intentionally minimal so the transpilation logic and examples remain the focus.
+- Future improvements: inline source-mapping, richer syntax hints, and optional round-trip checks.
 
 License
-- MIT — see LICENSE for details.
+This project is licensed under the MIT License — see the `LICENSE` file for details.
 
-Contact / Attribution
-- Repository: https://github.com/hunterg/JavaToPythonTranspiler
-- Owner: hunterg (add your email or link here)
-
-
+Contact
+Repository: https://github.com/hunterg/JavaToPythonTranspiler  
+Owner: hunterg
