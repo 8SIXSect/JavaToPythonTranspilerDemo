@@ -6,7 +6,7 @@
     box-sizing: border-box;
 }
 
-/* Dark-only theme variables (single consistent color scheme) */
+/* Dark-only theme variables (needed for code mirror) */
 :root {
     --bg: #05060a;
     --surface: #0b1220;
@@ -56,7 +56,7 @@ div.CodeMirror.cm-s-material {
     font-size: 12px;
 }
 
-/* Use Tailwind's @screen to scale the editor font size with breakpoints */
+/* Pretty much the font size of the textarea where you type code. */
 @screen lg {
     div.CodeMirror.cm-s-material { font-size: 13px; }
 }
@@ -64,14 +64,12 @@ div.CodeMirror.cm-s-material {
     div.CodeMirror.cm-s-material { font-size: 14px; }
 }
 
-/* gutter styling */
 div.CodeMirror.cm-s-material .CodeMirror-gutters {
     background: var(--cm-gutter-bg) !important;
     border-right: 1px solid var(--border-weak);
     color: var(--muted-weak);
 }
 
-/* cursor, selection and active-line */
 div.CodeMirror.cm-s-material .CodeMirror-cursor {
     border-left: 2px solid var(--cm-cursor) !important;
 }
