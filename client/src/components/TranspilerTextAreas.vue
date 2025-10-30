@@ -121,7 +121,7 @@ onMounted(() => {
 </template>
 
 <style>
-/* Ensure CodeMirror never exceeds its parent width */
+/* Further Code Mirror stylign is done in index.css. */
 div.CodeMirror {
     max-width: 100%;
 }

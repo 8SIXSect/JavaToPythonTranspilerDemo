@@ -21,7 +21,10 @@ module.exports = {
                     DEFAULT: '#06B6D4',
                     400: '#2dd4bf'
                 },
-                card: '#0f1724'
+                card: {
+                    DEFAULT: '#0f1724',
+                    60: '#0f172499'
+                }
             },
             boxShadow: {
                 'lg-soft': '0 10px 25px rgba(2,6,23,0.6)'

@@ -2,8 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Make border-box the default for all elements and pseudo-elements so width/height include padding and border.
-   This prevents overflowing children and simplifies sizing calculations across the app. */
 *, *::before, *::after {
     box-sizing: border-box;
 }
@@ -12,15 +10,10 @@
 :root {
     --bg: #05060a;
     --surface: #0b1220;
-    --card: #0f1724;
-    --card-60: rgba(15, 23, 36, 0.6);
     --text: #e6eef8;
-    --muted: #94a3b8;
     --muted-weak: rgba(230, 238, 248, 0.55);
     --border: rgba(255, 255, 255, 0.06);
     --border-weak: rgba(255, 255, 255, 0.03);
-    --accent: #7C3AED;
-    --accent-2: #06B6D4;
     --cm-bg: #071125;
     --cm-gutter-bg: #071525;
     --cm-foreground: #e6eef8;
@@ -31,11 +24,25 @@
     --cm-comment: #6b7280;
 }
 
-/* Apply background and text color using variables so both regular CSS and any non-tailwind elements match */
 body {
     background: linear-gradient(180deg, var(--surface), var(--bg));
     color: var(--text);
-    transition: background-color 220ms ease, color 220ms ease;
+    transition: background-color 400ms ease, color 400ms ease;
+    animation: pageFadeIn 600ms ease both;
+    will-change: opacity;
+}
+
+@keyframes pageFadeIn {
+    from { opacity: 0.0; }
+    to   { opacity: 1.0; }
+}
+
+/* Respect users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    body {
+        animation: none;
+        transition: none;
+    }
 }
 
 /* CodeMirror Material theme overrides to better match our dark palette */
