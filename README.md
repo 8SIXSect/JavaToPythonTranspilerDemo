@@ -1,4 +1,4 @@
-# Java → Python Transpiler (Frontend)
+# Java → Python Transpiler
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 ![Python Version](https://img.shields.io/badge/python-3.11%2B-blue)
@@ -15,32 +15,35 @@ A lightweight frontend pairing a Java editor with live Python transpilation.
 
 ## Quickstart (frontend)
 Prerequisites:
-- Node.js (16+ recommended)
-- An instance of the transpiler API (see API section)
+- Node.js (20+ recommended)
+- npm
+- Python (3.11+)
 
-Clone and run locally:
+### Install
+
 ```bash
-git clone https://github.com/hunterg/JavaToPythonTranspiler.git
-cd JavaToPythonTranspiler/client
 npm install
-# set API url, for example:
-# echo "VUE_APP_API_URL=http://localhost:8000" > .env.local
+```
+
+### Run development server
+
+```bash
 npm run dev
 ```
 
+### Run e2e tests (headless)
 
-## Example (curl)
 ```bash
-curl -X POST "$VUE_APP_API_URL/transpiler/" \
-  -H "Content-Type: application/json" \
-  -d '{"java_source_code":"public class Main { public static void main(String[] a){ System.out.println(\"hi\"); } }"}'
+npx cypress run
 ```
 
 ## Features
 - Dual-pane editor: Java input and Python output (CodeMirror integration).
 - Debounced/settled-change polling to avoid excessive API calls.
-- Responsive layout tuned for recruiter-friendly screenshots and demos.
-- Simple, clear API contract—easy to swap backend implementations.
+- Responsive layout tuned for ease of use.
+
+## Transpilation
+See the transpiler source code [here](https://github.com/8SIXSect/JavaToPythonTranspiler)
 
 ## License
 
